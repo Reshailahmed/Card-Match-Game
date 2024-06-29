@@ -4,16 +4,14 @@ using UnityEngine.EventSystems;
 
 public class Card : MonoBehaviour, IPointerClickHandler
 {
-    public Image frontImage; // Reference to the front image of the card
-    public GameObject back; // Reference to the back of the card (optional if you have animations or other functionality)
-    public Sprite cardImage;
-    public string cardType; // Use a string to represent the card type
+    public Image frontImage;
+    public GameObject back;
+    public string cardType;
     private bool isRevealed = false;
     private GameManager gameManager;
 
     public void Initialize(Sprite image, GameManager manager)
     {
-        cardImage = image;
         frontImage.sprite = image;
         cardType = image.name;
         gameManager = manager;
@@ -21,6 +19,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.LogError("isRevealed: " + isRevealed);
         if (!isRevealed && gameManager.CanSelectCard())
         {
             Flip();

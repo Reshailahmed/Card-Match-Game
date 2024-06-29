@@ -334,6 +334,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 567cb1b300fed274f9e11e4a767db260, type: 3}
   - {fileID: 21300000, guid: 4a99eb94db2103d44aaaabf6f5615078, type: 3}
   numPairs: 3
+  gridRows: 2
+  gridColumns: 2
   layoutGroup: {fileID: 0}
 --- !u!4 &673029527
 Transform:

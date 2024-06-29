@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     public int gridRows = 4;
     public int gridColumns = 4;
     private Queue<Card> cardQueue = new Queue<Card>();
-    private bool canSelect = true;
-    public GridLayoutGroup layoutGroup;
+    private bool canSelect = false;
+    private GridLayoutGroup layoutGroup;
 
     void Start()
     {
@@ -34,10 +34,15 @@ public class GameManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        // Calculate how many pairs to instantiate per card image
-        if (numPairs <= 0)
-            numPairs = cardImages.Count;
-        int pairsPerImage = Mathf.CeilToInt((float)(rows * columns) / numPairs);
+        // Calculate the total number of cards
+        int totalCards = rows * columns;
+
+        // Adjust numPairs if necessary
+        if (numPairs <= 0 || numPairs > cardImages.Count)
+            numPairs = Mathf.Min(cardImages.Count, totalCards / 2);
+
+        // Calculate the total number of pairs needed
+        int totalPairs = totalCards / 2;
 
         // Create and shuffle cards
         List<Sprite> selectedImages = new List<Sprite>();
@@ -45,9 +50,17 @@ public class GameManager : MonoBehaviour
         // Add pairs of each available card image
         for (int i = 0; i < numPairs; i++)
         {
-            for (int j = 0; j < pairsPerImage; j++)
+            selectedImages.Add(cardImages[i]);
+            selectedImages.Add(cardImages[i]);
+        }
+
+        // If there are fewer pairs than needed, repeat the existing pairs
+        while (selectedImages.Count < totalCards)
+        {
+            for (int i = 0; i < numPairs && selectedImages.Count < totalCards; i++)
             {
-                selectedImages.Add(cardImages[i % cardImages.Count]);
+                selectedImages.Add(cardImages[i]);
+                selectedImages.Add(cardImages[i]);
             }
         }
 
@@ -55,14 +68,16 @@ public class GameManager : MonoBehaviour
         Shuffle(selectedImages);
 
         // Instantiate cards
-        for (int i = 0; i < rows * columns; i++)
+        for (int i = 0; i < totalCards; i++)
         {
             GameObject cardObj = Instantiate(cardPrefab, panelTransform);
             Card card = cardObj.GetComponent<Card>();
             card.Initialize(selectedImages[i], this);
         }
+
         StartCoroutine(ShowCardsForSeconds(3));
     }
+
 
     IEnumerator ShowCardsForSeconds(int seconds)
     {
@@ -76,6 +91,7 @@ public class GameManager : MonoBehaviour
             card.Flip();
         }
         DisableLayoutComponents();
+        canSelect = true; // Allow card selection after the initial display period
     }
 
     public bool CanSelectCard()
@@ -96,14 +112,12 @@ public class GameManager : MonoBehaviour
     {
         while (cardQueue.Count >= 2)
         {
-            canSelect = false;
-
             Card firstCard = cardQueue.Dequeue();
             Card secondCard = cardQueue.Dequeue();
 
-            yield return new WaitForSeconds(1);
-            Debug.Log("firstCard: " + firstCard.cardType + " " + "secondCard: " + secondCard.cardType);
-            if (firstCard.cardType == secondCard.cardType)
+            yield return new WaitForSeconds(5f);
+
+            if (firstCard.cardImage.name == secondCard.cardImage.name) // Compare by sprite name
             {
                 Destroy(firstCard.gameObject);
                 Destroy(secondCard.gameObject);
@@ -114,8 +128,6 @@ public class GameManager : MonoBehaviour
                 secondCard.Flip();
             }
         }
-
-        canSelect = true;
     }
 
     void DisableLayoutComponents()
