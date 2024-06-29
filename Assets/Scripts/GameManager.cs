@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(5f);
 
-            if (firstCard.cardImage.name == secondCard.cardImage.name) // Compare by sprite name
+            if (firstCard.cardType == secondCard.cardType) // Compare by card type
             {
                 Destroy(firstCard.gameObject);
                 Destroy(secondCard.gameObject);
