@@ -28,6 +28,7 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
     public void Flip()
     {
+        OnCardClick();
         isRevealed = !isRevealed;
         frontImage.gameObject.SetActive(isRevealed);
         if (back != null)
@@ -39,5 +40,10 @@ public class Card : MonoBehaviour, IPointerClickHandler
     public bool IsRevealed()
     {
         return isRevealed;
+    }
+
+    public void OnCardClick()
+    {
+        EventManager.Instance.NotifyObservers("ClickOnCard");
     }
 }

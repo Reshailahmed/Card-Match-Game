@@ -9,6 +9,7 @@ public class StartSceneManager : MonoBehaviour
 
     public void StartNewGame()
     {
+        OnButtonClick();
         if (int.TryParse(rowsInput.text, out int rows) && int.TryParse(columnsInput.text, out int columns))
         {
             GameConstants.Rows = rows;
@@ -24,7 +25,13 @@ public class StartSceneManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        OnButtonClick();
         GameConstants.GameState = false;  // Set to false for resume game
         SceneManager.LoadScene("GamePlay");
+    }
+
+    public void OnButtonClick()
+    {
+        EventManager.Instance.NotifyObservers("ButtonClick");
     }
 }

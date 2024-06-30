@@ -140,12 +140,14 @@ public class GameManager : MonoBehaviour
             {
                 int index = firstCard.gameObject.transform.GetSiblingIndex();
 
+                OnMatch();
                 firstCard.gameObject.SetActive(false);
                 secondCard.gameObject.SetActive(false);
                 Destroy(firstCard.gameObject);
 
                 GameObject tempObject = Instantiate(EmptyGameObject, panelTransform);
                 tempObject.transform.SetSiblingIndex(index);
+
 
                 yield return new WaitForEndOfFrame();
                 int index2 = secondCard.gameObject.transform.GetSiblingIndex();
@@ -158,6 +160,8 @@ public class GameManager : MonoBehaviour
                 // Flip cards back if they do not match
                 firstCard.Flip();
                 secondCard.Flip();
+                OnMissMatch();
+
             }
         }
     }
@@ -341,4 +345,18 @@ public class GameManager : MonoBehaviour
         }
         return null; // Handle case where sprite is not found
     }
+
+    #region SoundManager
+
+    public void OnMatch()
+    {
+        EventManager.Instance.NotifyObservers("MatchImpact");
+    }
+
+    public void OnMissMatch()
+    {
+        EventManager.Instance.NotifyObservers("MissMatchImpact");
+    }
+
+    #endregion
 }
