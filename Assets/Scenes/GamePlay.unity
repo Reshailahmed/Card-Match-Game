@@ -323,19 +323,29 @@ MonoBehaviour:
   cardPrefab: {fileID: 5507820699686786019, guid: 10b6db9fb5853064fbf6d4c59e5a51d7, type: 3}
   dynamicGridLayout: {fileID: 673029525}
   panelTransform: {fileID: 2053077727}
-  cardImages:
-  - {fileID: 21300000, guid: 2963a6003f1e5e64aa17a15ab7dcf149, type: 3}
-  - {fileID: 21300000, guid: c64149963d275a142958ece71907d757, type: 3}
-  - {fileID: 21300000, guid: 310002611615a6140ab2b145decc42b1, type: 3}
-  - {fileID: 21300000, guid: 4bfdbf0347b274e4bba6a3b1b5ba5dfc, type: 3}
-  - {fileID: 21300000, guid: 3a0087d0766db9c45a3ca381c82e2720, type: 3}
-  - {fileID: 21300000, guid: f1ea4fcad9774994ca455a78c47bff6f, type: 3}
-  - {fileID: 21300000, guid: ca0a787e49569164fb95730a31299d60, type: 3}
-  - {fileID: 21300000, guid: 567cb1b300fed274f9e11e4a767db260, type: 3}
-  - {fileID: 21300000, guid: 4a99eb94db2103d44aaaabf6f5615078, type: 3}
-  numPairs: 3
-  gridRows: 2
-  gridColumns: 2
+  cardDataList:
+  - {fileID: 11400000, guid: f9a2d3c07e7cfe5408d65e736e140796, type: 2}
+  - {fileID: 11400000, guid: d0b2835d1cf56f14a9203f51dd7e7dd5, type: 2}
+  - {fileID: 11400000, guid: 5cc25034946cebe4cab6da7c3b10403e, type: 2}
+  - {fileID: 11400000, guid: b548ee7f6439e474eb0857e6a7e2e664, type: 2}
+  - {fileID: 11400000, guid: d1a7b9cbbd4d5fc449c15954feb9fa7d, type: 2}
+  - {fileID: 11400000, guid: fe13ee0f821bfa84cae8efbbc8ebbcfb, type: 2}
+  - {fileID: 11400000, guid: bce6be4c9a13d5945941ddc516c1a9a3, type: 2}
+  - {fileID: 11400000, guid: f3397fcc2222ea949bb9d32adb28afa0, type: 2}
+  - {fileID: 11400000, guid: 3ed10fab418fbb947b219ecae72e93cc, type: 2}
+  - {fileID: 11400000, guid: f46cca38f91269a46ade802c920b445d, type: 2}
+  - {fileID: 11400000, guid: 9aece3aa32e51ee45bf0581d34d8412a, type: 2}
+  - {fileID: 11400000, guid: 12e64f5856502da41a0f6b681f002106, type: 2}
+  - {fileID: 11400000, guid: a427f314d41d14e46ab248d4ed21224a, type: 2}
+  - {fileID: 11400000, guid: a24e45315f5fa8b4ca8815df237b309c, type: 2}
+  - {fileID: 11400000, guid: d4340ff77161ed64fb3126d502e99127, type: 2}
+  - {fileID: 11400000, guid: 38b959d360740b8429d5aa6dc5bd7587, type: 2}
+  - {fileID: 11400000, guid: 8751dc6a59580de4fa398db293b9cc0b, type: 2}
+  - {fileID: 11400000, guid: 35268d0bb621e3a4ba8fd5927b46e087, type: 2}
+  - {fileID: 11400000, guid: 440ecf88cea9396479c763990eabdf76, type: 2}
+  - {fileID: 11400000, guid: 2feb29e1c308a52479237f0d3d0d2397, type: 2}
+  numPairs: 2
+  EmptyGameObject: {fileID: 136423094506656784, guid: dbcd1a2a806508242ae92faed6380aca, type: 3}
 --- !u!4 &673029527
 Transform:
   m_ObjectHideFlags: 0

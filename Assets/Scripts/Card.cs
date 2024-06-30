@@ -6,20 +6,19 @@ public class Card : MonoBehaviour, IPointerClickHandler
 {
     public Image frontImage;
     public GameObject back;
-    public string cardType;
+    public string cardName; // Updated to cardName
     private bool isRevealed = false;
     private GameManager gameManager;
 
-    public void Initialize(Sprite image, GameManager manager)
+    public void Initialize(Sprite image, string name, GameManager manager)
     {
         frontImage.sprite = image;
-        cardType = image.name;
+        cardName = name;
         gameManager = manager;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.LogError("isRevealed: " + isRevealed);
         if (!isRevealed && gameManager.CanSelectCard())
         {
             Flip();
