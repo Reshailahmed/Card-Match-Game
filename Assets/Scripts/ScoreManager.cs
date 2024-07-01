@@ -89,6 +89,7 @@ public class ScoreManager : MonoBehaviour, IGameEventObserver
     {
         if (gameManager != null)
         {
+            yield return new WaitForEndOfFrame();
             yield return StartCoroutine(gameManager.ShowCardsForSeconds(seconds));
         }
     }

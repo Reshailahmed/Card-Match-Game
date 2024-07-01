@@ -1,14 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 public class Card : MonoBehaviour, IPointerClickHandler
 {
     public Image frontImage;
     public GameObject back;
-    public string cardName; // Updated to cardName
+    public string cardName;
     private bool isRevealed = false;
     private GameManager gameManager;
+    private bool coroutineAllowed = true;
 
     public void Initialize(Sprite image, string name, GameManager manager)
     {
@@ -19,22 +21,52 @@ public class Card : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!isRevealed && gameManager.CanSelectCard())
+        if (!isRevealed && gameManager.CanSelectCard() && coroutineAllowed)
         {
-            Flip();
+            StartCoroutine(RotateCard());
             gameManager.CardSelected(this);
         }
     }
 
-    public void Flip()
+    public IEnumerator RotateCard()
     {
-        OnCardClick();
-        isRevealed = !isRevealed;
-        frontImage.gameObject.SetActive(isRevealed);
-        if (back != null)
+        coroutineAllowed = false;
+
+        if (!isRevealed)
         {
-            back.SetActive(!isRevealed);
+            for (float i = 0f; i <= 180f; i += 10f)
+            {
+                transform.rotation = Quaternion.Euler(0f, i, 0f);
+                if (i == 90f)
+                {
+                    frontImage.gameObject.SetActive(true);
+                    if (back != null)
+                    {
+                        back.SetActive(false);
+                    }
+                }
+                yield return new WaitForSeconds(0.01f);
+            }
         }
+        else
+        {
+            for (float i = 180f; i >= 0f; i -= 10f)
+            {
+                transform.rotation = Quaternion.Euler(0f, i, 0f);
+                if (i == 90f)
+                {
+                    frontImage.gameObject.SetActive(false);
+                    if (back != null)
+                    {
+                        back.SetActive(true);
+                    }
+                }
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+
+        coroutineAllowed = true;
+        isRevealed = !isRevealed;
     }
 
     public bool IsRevealed()

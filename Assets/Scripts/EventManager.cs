@@ -17,9 +17,41 @@ public class EventManager : MonoBehaviour
                 {
                     GameObject obj = new GameObject("EventManager");
                     instance = obj.AddComponent<EventManager>();
+                    DontDestroyOnLoad(obj);
                 }
             }
             return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        // Ensure the instance is properly destroyed when the application quits
+        if (instance == this)
+        {
+            instance = null;
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
         }
     }
 

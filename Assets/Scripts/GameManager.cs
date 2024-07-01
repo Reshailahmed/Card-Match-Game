@@ -91,19 +91,25 @@ public class GameManager : MonoBehaviour
     {
         foreach (Transform child in panelTransform)
         {
-            Card card = child.GetComponent<Card>();
-            if (card != null)
+            if(child.CompareTag("Card"))
             {
-                card.Flip();
+                Card card = child.GetComponent<Card>();
+                if (card != null)
+                {
+                    StartCoroutine(card.RotateCard());
+                }
             }
         }
         yield return new WaitForSeconds(seconds);
         foreach (Transform child in panelTransform)
         {
-            Card card = child.GetComponent<Card>();
+            if (child.CompareTag("Card"))
+            {
+                            Card card = child.GetComponent<Card>();
             if (card != null)
             {
-                card.Flip();
+                StartCoroutine(card.RotateCard());
+            }
             }
         }
         DisableLayoutComponents();
@@ -137,7 +143,6 @@ public class GameManager : MonoBehaviour
             {
                 int index = firstCard.gameObject.transform.GetSiblingIndex();
 
-                OnMatch();
                 firstCard.gameObject.SetActive(false);
                 secondCard.gameObject.SetActive(false);
                 Destroy(firstCard.gameObject);
@@ -150,11 +155,12 @@ public class GameManager : MonoBehaviour
                 GameObject tempObject2 = Instantiate(EmptyGameObject, panelTransform);
                 tempObject2.transform.SetSiblingIndex(index2);
                 Destroy(secondCard.gameObject);
+                OnMatch();
             }
             else
             {
-                firstCard.Flip();
-                secondCard.Flip();
+                StartCoroutine(firstCard.RotateCard());
+                StartCoroutine(secondCard.RotateCard());
                 OnMissMatch();
             }
         }
